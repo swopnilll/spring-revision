@@ -87,7 +87,7 @@ In Spring, IOC stands for Inversion of Control. Essentially, we delegate control
 
 Understanding the Spring IOC Container is fundamental for efficient object management, promoting loose coupling, and enhancing the testability of Java applications.
 
-# Spring Containers: Bean Factory vs Application Context
+## Spring Containers: Bean Factory vs Application Context
 
 ## Bean Factory Container:
 
