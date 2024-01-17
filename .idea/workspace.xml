@@ -7,11 +7,8 @@
     <list default="true" id="7b6536c8-0861-4629-8b01-106708a52d55" name="Changes" comment="">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/spring/AppConfig.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/spring/AppConfig.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/spring/Bike.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/spring/Bike.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/spring/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/spring/Car.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/spring/Client.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/spring/Client.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/spring/Cycle.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/spring/Cycle.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/spring/Traveller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/spring/Traveller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />

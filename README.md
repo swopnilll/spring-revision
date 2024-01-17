@@ -1,96 +1,71 @@
-# Annotation Based Configuration
 
-In this article, we'll delve into the steps for annotation-based configuration in Spring. This approach simplifies the process of creating and managing Spring beans using annotations. Let's break down the steps:
+## Understanding @Qualifier and @Primary
 
-### Annotate a class with @Component:
-Use @Component annotation on a class to signal Spring IoC Container to automatically create a Spring bean for that class.
-For instance, annotate classes like Car, Bike, Cycle, or any class you want to be managed by Spring.
+### Overview:
+In this tutorial, we explore the use of several annotations in the Spring Framework, focusing on the challenges posed by ambiguity in bean injection and how to address them using @Qualifier and @Primary annotations.
 
-### Use @ComponentScan to specify the package:
-Explicitly tell Spring IoC Container to scan a particular package for classes annotated with @Component.
-Apply @ComponentScan annotation and specify the package name where the 
+## Introduction to Annotations:
+#### @Component: 
+Marks a class as a Spring component, allowing it to be automatically detected and registered as a bean in the Spring IoC container. 
 
-### Use @Autowired to inject Spring beans:
-After creating Spring beans, inject dependencies automatically using @Autowired annotation.
-For example, if a class has a dependency on another class, annotate the field or constructor with @Autowired.
+#### @Autowired: 
+Autowired dependencies between beans, injecting them automatically by type. 
+
+#### @Qualifier: 
+Resolves ambiguity when there are multiple beans of the same type by specifying the bean name to be injected. 
+
+#### @ComponentScan
+Scans specified packages for components to register in the Spring IoC container.
+
+## Addressing Ambiguity with @Qualifier:
+#### Problem Statement:
+
+- Multiple implementations of the Vehicle interface (e.g., Car, Bike, Cycle).
+- Constructor injection in the Driver class leads to ambiguity for the Spring IoC container.
+
+#### Solution:
+
+- Introduces the use of @Qualifier annotation to specify which bean to inject.
+- Demonstrates providing the bean name (e.g., @Qualifier("cycle")) to resolve ambiguity.
+
+## Introduction to @Primary Annotation:
+
+Qualifier effectively resolves ambiguity, an alternative solution using @Primary annotation can also be employed
 
 
-### Use @Qualifier to avoid ambiguity:
-
-If there are multiple beans of the same type, use @Qualifier in conjunction with @Autowired to specify which bean to inject.
-It avoids confusion for Spring IoC Container when injecting dependencies.
-
-### Create Spring IoC Container and retrieve beans:
-
-To test the annotation-based configuration, create a Spring container using ApplicationContext.
-Retrieve Spring beans from the container using the getBean method.
-
-These steps harness the power of annotations to instruct Spring IoC Container for automatic bean creation and management. Unlike Java-based configuration, there's no need to manually create objects; Spring Container takes care of it.
-
-
-### Spring Beans
 ```java
-package com.learning.spring;
-
 @Component
-public class Bike implements Vehicle {
-    public void move(){
-        System.out.println("Bike is moving");
-    }
-}
-
-@Component
+@Primary
 public class Car implements Vehicle {
 
     public void move(){
         System.out.println("Car is moving");
     }
 }
+```
 
+```java
 @Component
 public class Traveller {
     private  Vehicle vehicle;
 
     @Autowired
-    public Traveller(@Qualifier("bike") Vehicle vehicle) {
+    public Traveller(Vehicle vehicle) {
         this.vehicle = vehicle;
     }
 
     public void startJourney(){
-        this.vehicle.move();
+    this.vehicle.move();
     }
 }
 ```
 
-### App Config Class
-```java
+## Use Cases for @Primary Annotation:
 
-@ComponentScan(basePackages = "com.learning.spring")
-@Configuration
-public class AppConfig {
+#### Scenario:
+Multiple beans of the same type in different environments (e.g., data sources).
 
-}
-```
-
-### Client (Main App)
-```java
-public class Client {
-    public static void main(String[] args) {
-
-        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
-
-        Car car =  applicationContext.getBean(Car.class);
-        car.move();
-
-        Bike bike = applicationContext.getBean(Bike.class);
-        bike.move();
-
-        Traveller traveller = applicationContext.getBean(Traveller.class);
-        traveller.startJourney();
-
-    }
-}
-```
-        
+#### Use Case:
+In a Spring application, it's common to have different configurations for various environments, such as using different databases for local development, testing, and production. The @Primary annotation can be leveraged to handle these scenarios effectively.
 
 
