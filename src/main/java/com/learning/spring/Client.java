@@ -6,12 +6,8 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 public class Client {
     public static void main(String[] args) {
 
-        // Creating Spring IoC Container
-        // Read the configuration class
-        // Create and manage the spring beans
         ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
 
-        // Retrieve spring bean from Spring IoC container.
        Car car =  applicationContext.getBean(Car.class);
        car.move();
 
