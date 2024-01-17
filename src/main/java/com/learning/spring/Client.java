@@ -1,16 +1,25 @@
 package com.learning.spring;
 
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
+
 public class Client {
     public static void main(String[] args) {
 
-        Vehicle car = new Car();
-//        Vehicle bike = new Bike();
-//        Vehicle cycle = new Cycle();
+        // Creating Spring IoC Container
+        // Read the configuration class
+        // Create and manage the spring beans
+        ApplicationContext applicationContext = new AnnotationConfigApplicationContext(AppConfig.class);
 
-        Traveller traveller = new Traveller(car);
-//        Traveller traveller = new Traveller(bike);
-//        Traveller traveller = new Traveller(cycle);
-        traveller.startJourney();
+        // Retrieve spring bean from Spring IoC container.
+       Car car =  applicationContext.getBean(Car.class);
+       car.move();
+
+       Bike bike = applicationContext.getBean(Bike.class);
+       bike.move();
+
+       Traveller traveller = applicationContext.getBean(Traveller.class);
+       traveller.startJourney();
 
     }
 }

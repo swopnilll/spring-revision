@@ -1,137 +1,142 @@
-## Understanding Tight Coupling and Loose Coupling
+## Introduction
 
-In recent branches, we delved into the concepts of tight coupling and loose coupling in software development. Tight coupling occurs when classes and modules are highly dependent on each other, making the code less modular and more difficult to maintain. In contrast, loose coupling promotes a more flexible and modular design by reducing dependencies between components.
+When we create an object using new keyword, the object is store in heap memory of JVM.
 
-## Object Creation and Heap Memory
+The Idea of using Spring container is to allow the spring container to create and manage object for us.
 
-When we manually create instances of classes using the new keyword in Java, these objects are stored directly in the Java Virtual Machine (JVM)'s heap memory. The heap memory is a region of the memory space dedicated to dynamically allocated objects during the runtime of a Java program.
+For that, first of all, we need to provide an information in a configuration file to create and manage Spring beans. 
+This is called configuration metadata.
 
-In real-time projects, it's common to have numerous classes, each requiring manual instantiation. However, this practice is not considered optimal or sustainable, especially when dealing with a large codebase that includes hundreds or thousands of classes.
+Spring provides different ways to configure the spring beans. 
+1. XML-based configuration.
+2. Annotation based configuration.
+3. Java based configuration
 
-## The Need for a Framework
+Most of the developer prefer a mix of Java based and annotation based configuration.
 
-To address the challenges associated with manually creating and managing instances of numerous classes, a more efficient and organized approach is required. This is where the Spring framework comes into play.
+## Steps of Java Based Configuration 
 
-## Introduction to the Spring Framework
+1. Create a configuration class with @Configuration annotation.
+2. Create a method and annotate it with @Bean annotation.
+3. Create Spring IoC container (Application Context) and Retrieve Spring bean from Spring IoC Container.
 
-Spring is a comprehensive framework for building enterprise Java applications. One of its key features is the Spring Container, which handles the creation and management of objects, effectively managing their life cycle.
+# Java-Based Configuration in Spring
 
-## Spring Container Features:
+## Introduction:
 
-1. **Inversion of Control (IoC):**
-    - In traditional programming, the flow of control is determined by the program logic. In contrast, IoC in Spring allows the Spring Container to control the flow.
+In this section, we'll delve into understanding the Spring container with Java-based configuration. Before exploring the Spring container, it's crucial to grasp the steps involved in creating a Java-based configuration in a Spring application.
 
-2. **Dependency Injection (DI):**
-    - Spring facilitates the injection of dependencies into the components (beans) during object creation, promoting loose coupling and enhancing modularity.
+## Java-Based Configuration Steps:
 
-3. **Lifecycle Management:**
-    - Spring Container manages the lifecycle of objects, handling their creation, initialization, usage, and destruction.
+### 1. Create a Configuration Class:
 
-4. **AOP (Aspect-Oriented Programming):**
-    - Spring supports AOP, allowing the modularization of cross-cutting concerns such as logging and transaction management.
+- Create a configuration class annotated with `@Configuration`. This class will serve as the basis for configuring Spring beans.
 
-## Benefits of Using the Spring Container:
+```java
+   @Configuration
+   public class AppConfig {
+       // Configuration details go here
+   }
+```
+Whenever we annotate a class with @Configuration annotation, then the class becomes a java based configuration class.
 
-1. **Reduced Manual Object Creation:**
-    - Spring eliminates the need for manually creating instances of numerous classes, reducing boilerplate code.
+And within the configuration class, we can configure one or more spring beans using @Bean annotation.
 
-2. **Improved Code Modularity:**
-    - Loose coupling, facilitated by Dependency Injection, leads to more modular and maintainable code.
 
-3. **Easier Unit Testing:**
-    - Dependency Injection makes it easier to perform unit testing by injecting mock objects.
 
-4. **Enhanced Application Scalability:**
-    - Spring's IoC and DI principles contribute to better scalability by promoting a modular and flexible architecture.
+### 2. Define Spring Beans:
+To define Spring beans within the configuration class, create methods annotated with @Bean. Each method returns an object of a specific class, and Spring container manages these objects.
 
-# Understanding Spring IOC Container
+```java
+@Configuration
+public class AppConfig {
+    @Bean
+    public Car car() {
+        return new Car();
+    }
 
-In Spring, IOC stands for Inversion of Control. Essentially, we delegate control to the Spring framework to create and manage objects' life cycle, eliminating the need for manual object creation.
+    @Bean
+    public Bike bike() {
+        return new Bike();
+    }
+}
 
-## Spring IOC Container:
+```
+In the above example, the car() method returns a new instance of the Car class, and the bike() method returns a new instance of the Bike class.
 
-- **Definition:**
-    - The Spring IOC Container is responsible for creating and managing objects, known as Spring Beans. These objects are Java objects created and managed by the Spring Container.
+@Bean Annotation tells spring container that this method returns an instance of car class and spring IoC container have to manage the instance of car class.
 
-- **Control Delegation:**
-    - We relinquish control to the Spring Container to handle object creation and life-cycle management, avoiding manual object instantiation.
 
-- **Spring Bean:**
-    - A Spring Bean is a Java object created and managed by the Spring Container. The Spring Container is responsible for injecting one bean into another using Dependency Injection.
+### 3. Inject Dependencies Manually:
+In Java-based configuration, dependencies need to be injected manually. For example, if the Traveler class depends on the Bike class, inject the Bike object manually.
+```java
+@Configuration
+public class AppConfig {
+    @Bean
+    public Car car() {
+        return new Car();
+    }
 
-- **Dependency Injection (DI):**
-    - Dependency Injection is a key concept where the Spring Container injects one object into another, making it more loosely coupled. Details about DI types will be covered in subsequent lectures.
+    @Bean
+    public Bike bike() {
+        return new Bike();
+    }
 
-- **Life-Cycle Management:**
-    - The Spring Container manages the complete life-cycle of a bean, from creation to destruction. Objects are created by the container and automatically destroyed when the container is shutdown.
+    @Bean
+    public Traveler traveler() {
+        return new Traveler(bike());
+    }
+}
+```
+The Traveler class is created with a manually injected dependency of the Bike class.
 
-- **Configuration File:**
-    - Spring Container uses a configuration file to create and inject objects. Information about what objects to create and how to inject them is specified in this configuration file.
+## Create Spring IoC Container and Retrieve Bean 
 
-- **Configuration Options:**
-    - Configuration metadata can be provided using XML-based configuration, annotation-based configuration, or Java code-based configuration. Spring offers flexibility in configuring beans.
+```java
+import org.springframework.context.ApplicationContext;
+import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 
-- **Loose Coupling and Testability:**
-    - Objects managed by the Spring Container are more loosely coupled, making them easier to test. Dependencies can be easily swapped out with mock objects, enhancing testability.
+public class Client {
+    public static void main(String[] args) {
+        // Creating the Spring container using AnnotationConfigApplicationContext
+        ApplicationContext context = new AnnotationConfigApplicationContext(AppConfig.class);
 
-## Configuration Options:
+        // Retrieving Spring beans from the container
+        Vehicle car = context.getBean(Car.class);
+        Vehicle bike = context.getBean(Bike.class);
+        Traveller traveller = context.getBean(Traveller.class);
 
-- **XML-based Configuration:**
-    - Configure metadata using XML files.
+        // Invoking methods on the retrieved beans
+        car.move();
+        bike.move();
+        traveller.startJourney();
+    }
+}
+```
 
-- **Annotation-based Configuration:**
-    - Use annotations to configure beans.
+In this client class, we create an AnnotationConfigApplicationContext and pass our AppConfig class to it. We then retrieve the Spring beans (Car, Bike, and Traveller) from the container using the getBean method.
 
-- **Java Code-based Configuration:**
-    - Configure beans using Java code.
+Finally, we invoke the move method on the Car and Bike beans and the startJourney method on the Traveller bean.
 
-Understanding the Spring IOC Container is fundamental for efficient object management, promoting loose coupling, and enhancing the testability of Java applications.
 
-# Spring Containers: Bean Factory vs Application Context
+## Summary
+This example demonstrates how to configure Spring beans using Java-based configuration and how to use the Spring container to manage these beans. By injecting dependencies through the container, we achieve loose coupling and enable Spring to handle the object lifecycle. This approach enhances flexibility, modularity, and testability in our application.
 
-## Bean Factory Container:
 
-- **Responsibilities:**
-    - Bean Factory Container is responsible for:
-        - Creating Spring beans.
-        - Configuring Spring beans.
-        - Managing the life-cycle of Spring beans.
+## Understanding How Spring IOC Container Works
 
-- **Basic Functionality:**
-    - The primary functionality of the Bean Factory Container includes bean creation, configuration, and life-cycle management.
+### Overview
+Consider an application with multiple Java classes, denoted as Class1, Class2, Class3, and so forth. Instead of manually creating objects for these classes, we want the Spring container to take control of the object creation and management process.
 
-## Application Context Container:
+To achieve this, we provide information in a configuration file to the Spring container. The configuration file can be in various formats, including XML-based configuration, annotation-based configuration, or Java-based configuration.
 
-- **Overview:**
-    - Application Context Container is an advanced container providing enterprise-level features.
+Here's how the process unfolds:
 
-- **Responsibilities:**
-    - Similar to the Bean Factory Container, the Application Context Container is responsible for:
-        - Creating Spring beans.
-        - Configuring Spring beans.
-        - Managing the entire life-cycle of Spring beans.
+1. Configuration File: We create a configuration file that specifies which Spring beans the container should create. This file contains details about the beans and their dependencies.
+2. Spring IOC Container: The Spring IOC container reads the configuration file, extracting information on which beans to create and how to manage their lifecycle.
+3. Bean Creation and Lifecycle Management: Based on the configuration, the container creates Spring beans and manages their lifecycle, handling aspects such as initialization, usage, and destruction.
+4. Dependency Injection: If there are dependencies between beans, the container uses dependency injection to inject the required dependencies into the corresponding beans.
+5. Application Ready: Once the container has created and configured all the necessary beans, and injected dependencies, the application becomes fully configured and ready to use.
 
-- **Enterprise Application Features:**
-    - In addition to the basic functionalities, the Application Context Container offers enterprise application features, including:
-        - **Messaging:**
-            - Provides messaging functionality.
-        - **Internationalization:**
-            - Supports internalization features.
-        - **Event Publication:**
-            - Facilitates event publication functionality.
-        - **Annotation-based Dependency Injection:**
-            - Enables dependency injection using annotations.
-        - **Integration with Spring AOP:**
-            - Easily integrates with Spring Aspect-Oriented Programming (AOP) features.
-        - **Support for Various Bean Scopes:**
-            - Offers support for a variety of bean scopes.
-
-- **Recommendation:**
-    - It is recommended to use the Application Context as the Spring IOC container for its additional enterprise-level features.
-
-- **Interfaces and Implementations:**
-    - Both Bean Factory and Application Context are interfaces, and there are multiple implementations for these interfaces.
-
-## Further :
-
-- In the further section, various implementations for the Application Context will be explored, showcasing the flexibility and adaptability of the Spring framework.
+## Conclusion
+Understanding how the Spring IOC container works is crucial for efficiently leveraging the benefits of inversion of control. By providing configuration details, developers allow the container to handle object creation, lifecycle management, and dependency injection, promoting a modular and maintainable application design. In the next sections, we will explore the specifics of using annotation-based configuration in a Spring application.
