@@ -5,11 +5,12 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="7b6536c8-0861-4629-8b01-106708a52d55" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/learning/spring/DemoClient.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/learning/spring/controller/DemoController.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/learning/spring/repository/DemoRepository.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/main/java/com/learning/spring/service/DemoService.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" afterPath="$PROJECT_DIR$/README.md" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/spring/Bike.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/spring/Bike.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/spring/Car.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/spring/Car.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/main/java/com/learning/spring/Traveller.java" beforeDir="false" afterPath="$PROJECT_DIR$/src/main/java/com/learning/spring/Traveller.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
