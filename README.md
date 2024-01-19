@@ -20,7 +20,7 @@ Welcome to the "Spring Revision" repository! This repository is designed to faci
     - Branch: [e-annotation-based-configuraton](https://github.com/swopnilll/spring-revision/tree/e-annotation-based-configuraton)
   
 6. **More on Annotation**: Dive into the world of Spring with annotation-based configuration.
-    - Branch: [e-annotation-based-configuraton](https://github.com/swopnilll/spring-revision/tree/f-primary-annotation)
+    - Branch: [f-annotation-based-configuraton](https://github.com/swopnilll/spring-revision/tree/f-primary-annotation)
 
 ## Getting Started
 
