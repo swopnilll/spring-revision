@@ -21,7 +21,11 @@ Welcome to the "Spring Revision" repository! This repository is designed to faci
   
 6. **More on Annotation**: Dive into the world of Spring with annotation-based configuration.
     - Branch: [f-annotation-based-configuraton](https://github.com/swopnilll/spring-revision/tree/f-primary-annotation)
-
+  
+7. **Stereotype Annotation**: Dive into the world of Spring with annotation-based configuration.
+    - Branch: [g-stereotype-annotations-spring](https://github.com/swopnilll/spring-revision/tree/g-stereotype-annotations-spring)
+  
+   
 ## Getting Started
 
 To begin your learning journey, clone this repository and switch to the branch corresponding to the concept you want to explore. Each branch contains code examples and a detailed README to guide you through the learning process.
